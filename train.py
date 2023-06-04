@@ -101,7 +101,7 @@ group.add_argument('--class-map', default='', type=str, metavar='FILENAME',
 group = parser.add_argument_group('Model parameters')
 group.add_argument('--model', default='resnet50', type=str, metavar='MODEL',
                    help='Name of model to train (default: "resnet50")')
-group.add_argument('--pretrained', action='store_true', default=False,
+group.add_argument('--pretrained', action='store_true', default=True,
                    help='Start with pretrained version of specified network (if avail)')
 group.add_argument('--initial-checkpoint', default='', type=str, metavar='PATH',
                    help='Initialize model from this checkpoint (default: none)')
