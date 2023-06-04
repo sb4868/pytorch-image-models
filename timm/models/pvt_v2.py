@@ -448,55 +448,55 @@ def _cfg(url='', **kwargs):
 
 
 default_cfgs = generate_default_cfgs({
-    'pvt_v2_b0': _cfg(hf_hub_id='timm/'),
-    'pvt_v2_b1': _cfg(hf_hub_id='timm/'),
-    'pvt_v2_b2': _cfg(hf_hub_id='timm/'),
-    'pvt_v2_b3': _cfg(hf_hub_id='timm/'),
-    'pvt_v2_b4': _cfg(hf_hub_id='timm/'),
-    'pvt_v2_b5': _cfg(hf_hub_id='timm/'),
-    'pvt_v2_b2_li': _cfg(hf_hub_id='timm/'),
+    'pvt_v2_b0.in1k': _cfg(hf_hub_id='timm/'),
+    'pvt_v2_b1.in1k': _cfg(hf_hub_id='timm/'),
+    'pvt_v2_b2.in1k': _cfg(hf_hub_id='timm/'),
+    'pvt_v2_b3.in1k': _cfg(hf_hub_id='timm/'),
+    'pvt_v2_b4.in1k': _cfg(hf_hub_id='timm/'),
+    'pvt_v2_b5.in1k': _cfg(hf_hub_id='timm/'),
+    'pvt_v2_b2_li.in1k': _cfg(hf_hub_id='timm/'),
 })
 
 
 @register_model
-def pvt_v2_b0(pretrained=False, **kwargs):
+def pvt_v2_b0(pretrained=False, **kwargs) -> PyramidVisionTransformerV2:
     model_args = dict(depths=(2, 2, 2, 2), embed_dims=(32, 64, 160, 256), num_heads=(1, 2, 5, 8))
     return _create_pvt2('pvt_v2_b0', pretrained=pretrained, **dict(model_args, **kwargs))
 
 
 @register_model
-def pvt_v2_b1(pretrained=False, **kwargs):
+def pvt_v2_b1(pretrained=False, **kwargs) -> PyramidVisionTransformerV2:
     model_args = dict(depths=(2, 2, 2, 2), embed_dims=(64, 128, 320, 512), num_heads=(1, 2, 5, 8))
     return _create_pvt2('pvt_v2_b1', pretrained=pretrained, **dict(model_args, **kwargs))
 
 
 @register_model
-def pvt_v2_b2(pretrained=False, **kwargs):
+def pvt_v2_b2(pretrained=False, **kwargs) -> PyramidVisionTransformerV2:
     model_args = dict(depths=(3, 4, 6, 3), embed_dims=(64, 128, 320, 512), num_heads=(1, 2, 5, 8))
     return _create_pvt2('pvt_v2_b2', pretrained=pretrained, **dict(model_args, **kwargs))
 
 
 @register_model
-def pvt_v2_b3(pretrained=False, **kwargs):
+def pvt_v2_b3(pretrained=False, **kwargs) -> PyramidVisionTransformerV2:
     model_args = dict(depths=(3, 4, 18, 3), embed_dims=(64, 128, 320, 512), num_heads=(1, 2, 5, 8))
     return _create_pvt2('pvt_v2_b3', pretrained=pretrained, **dict(model_args, **kwargs))
 
 
 @register_model
-def pvt_v2_b4(pretrained=False, **kwargs):
+def pvt_v2_b4(pretrained=False, **kwargs) -> PyramidVisionTransformerV2:
     model_args = dict(depths=(3, 8, 27, 3), embed_dims=(64, 128, 320, 512), num_heads=(1, 2, 5, 8))
     return _create_pvt2('pvt_v2_b4', pretrained=pretrained, **dict(model_args, **kwargs))
 
 
 @register_model
-def pvt_v2_b5(pretrained=False, **kwargs):
+def pvt_v2_b5(pretrained=False, **kwargs) -> PyramidVisionTransformerV2:
     model_args = dict(
         depths=(3, 6, 40, 3), embed_dims=(64, 128, 320, 512), num_heads=(1, 2, 5, 8), mlp_ratios=(4, 4, 4, 4))
     return _create_pvt2('pvt_v2_b5', pretrained=pretrained, **dict(model_args, **kwargs))
 
 
 @register_model
-def pvt_v2_b2_li(pretrained=False, **kwargs):
+def pvt_v2_b2_li(pretrained=False, **kwargs) -> PyramidVisionTransformerV2:
     model_args = dict(
         depths=(3, 4, 6, 3), embed_dims=(64, 128, 320, 512), num_heads=(1, 2, 5, 8), linear=True)
     return _create_pvt2('pvt_v2_b2_li', pretrained=pretrained, **dict(model_args, **kwargs))

@@ -39,8 +39,7 @@ Modifications by / Copyright 2021 Ross Wightman, original copyrights below
 # --------------------------------------------------------'
 
 import math
-from functools import partial
-from typing import Callable, Final, Optional, Tuple, Union
+from typing import Callable, Optional, Tuple, Union
 
 import torch
 import torch.nn as nn
@@ -80,7 +79,7 @@ def gen_relative_position_index(window_size: Tuple[int, int]) -> torch.Tensor:
 
 
 class Attention(nn.Module):
-    fused_attn: Final[bool]
+    fused_attn: torch.jit.Final[bool]
 
     def __init__(
             self,
@@ -477,6 +476,11 @@ default_cfgs = generate_default_cfgs({
         hf_hub_id='timm/',
         mean=IMAGENET_DEFAULT_MEAN, std=IMAGENET_DEFAULT_STD
     ),
+    'beitv2_base_patch16_224.in1k_ft_in1k': _cfg(
+        url='https://conversationhub.blob.core.windows.net/beit-share-public/beitv2/beitv2_base_patch16_224_pt1k_ft1k.pth',
+        hf_hub_id='timm/',
+        mean=IMAGENET_DEFAULT_MEAN, std=IMAGENET_DEFAULT_STD
+    ),
     'beitv2_base_patch16_224.in1k_ft_in22k': _cfg(
         url='https://conversationhub.blob.core.windows.net/beit-share-public/beitv2/beitv2_base_patch16_224_pt1k_ft21k.pth',
         hf_hub_id='timm/',
@@ -484,6 +488,11 @@ default_cfgs = generate_default_cfgs({
     ),
     'beitv2_large_patch16_224.in1k_ft_in22k_in1k': _cfg(
         url='https://conversationhub.blob.core.windows.net/beit-share-public/beitv2/beitv2_large_patch16_224_pt1k_ft21kto1k.pth',
+        hf_hub_id='timm/',
+        crop_pct=0.95, mean=IMAGENET_DEFAULT_MEAN, std=IMAGENET_DEFAULT_STD
+    ),
+    'beitv2_large_patch16_224.in1k_ft_in1k': _cfg(
+        url='https://conversationhub.blob.core.windows.net/beit-share-public/beitv2/beitv2_large_patch16_224_pt1k_ft1k.pth',
         hf_hub_id='timm/',
         crop_pct=0.95, mean=IMAGENET_DEFAULT_MEAN, std=IMAGENET_DEFAULT_STD
     ),
@@ -515,7 +524,7 @@ def _create_beit(variant, pretrained=False, **kwargs):
 
 
 @register_model
-def beit_base_patch16_224(pretrained=False, **kwargs):
+def beit_base_patch16_224(pretrained=False, **kwargs) -> Beit:
     model_args = dict(
         patch_size=16, embed_dim=768, depth=12, num_heads=12, mlp_ratio=4,
         use_abs_pos_emb=False, use_rel_pos_bias=True, init_values=0.1)
@@ -524,7 +533,7 @@ def beit_base_patch16_224(pretrained=False, **kwargs):
 
 
 @register_model
-def beit_base_patch16_384(pretrained=False, **kwargs):
+def beit_base_patch16_384(pretrained=False, **kwargs) -> Beit:
     model_args = dict(
         img_size=384, patch_size=16, embed_dim=768, depth=12, num_heads=12,
         use_abs_pos_emb=False, use_rel_pos_bias=True, init_values=0.1)
@@ -533,7 +542,7 @@ def beit_base_patch16_384(pretrained=False, **kwargs):
 
 
 @register_model
-def beit_large_patch16_224(pretrained=False, **kwargs):
+def beit_large_patch16_224(pretrained=False, **kwargs) -> Beit:
     model_args = dict(
         patch_size=16, embed_dim=1024, depth=24, num_heads=16,
         use_abs_pos_emb=False, use_rel_pos_bias=True, init_values=1e-5)
@@ -542,7 +551,7 @@ def beit_large_patch16_224(pretrained=False, **kwargs):
 
 
 @register_model
-def beit_large_patch16_384(pretrained=False, **kwargs):
+def beit_large_patch16_384(pretrained=False, **kwargs) -> Beit:
     model_args = dict(
         img_size=384, patch_size=16, embed_dim=1024, depth=24, num_heads=16,
         use_abs_pos_emb=False, use_rel_pos_bias=True, init_values=1e-5)
@@ -551,7 +560,7 @@ def beit_large_patch16_384(pretrained=False, **kwargs):
 
 
 @register_model
-def beit_large_patch16_512(pretrained=False, **kwargs):
+def beit_large_patch16_512(pretrained=False, **kwargs) -> Beit:
     model_args = dict(
         img_size=512, patch_size=16, embed_dim=1024, depth=24, num_heads=16,
         use_abs_pos_emb=False, use_rel_pos_bias=True, init_values=1e-5)
@@ -560,7 +569,7 @@ def beit_large_patch16_512(pretrained=False, **kwargs):
 
 
 @register_model
-def beitv2_base_patch16_224(pretrained=False, **kwargs):
+def beitv2_base_patch16_224(pretrained=False, **kwargs) -> Beit:
     model_args = dict(
         patch_size=16, embed_dim=768, depth=12, num_heads=12, mlp_ratio=4,
         use_abs_pos_emb=False, use_rel_pos_bias=True, init_values=1e-5)
@@ -569,7 +578,7 @@ def beitv2_base_patch16_224(pretrained=False, **kwargs):
 
 
 @register_model
-def beitv2_large_patch16_224(pretrained=False, **kwargs):
+def beitv2_large_patch16_224(pretrained=False, **kwargs) -> Beit:
     model_args = dict(
         patch_size=16, embed_dim=1024, depth=24, num_heads=16,
         use_abs_pos_emb=False, use_rel_pos_bias=True, init_values=1e-5)
